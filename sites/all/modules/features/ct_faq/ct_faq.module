@@ -1,0 +1,7 @@
+<?php
+/**
+ * @file
+ * Code for the CT FAQ feature.
+ */
+
+include_once 'ct_faq.features.inc';
