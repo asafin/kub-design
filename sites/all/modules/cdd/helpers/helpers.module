@@ -1,0 +1,167 @@
+<?php
+
+/**
+ * @file keeps Drupal core hooks implementations
+ */
+
+/**
+ * Copy of array_merge_recursive_distinct()
+ *
+ * @author gabriel.sobrinho@gmail.com
+ * @source http://us1.php.net/manual/en/function.array-merge-recursive.php
+ *
+ * @param array $array1
+ * @param array $array2
+ *
+ * @param bool  $skip_null
+ *
+ * @return array
+ */
+function array_merge_recursive_distinct(array &$array1, array &$array2, $skip_null = FALSE) {
+  $merged = $array1;
+
+  foreach ($array2 as $key => &$value) {
+    if (is_array($value)
+      && isset($merged[$key])
+      && is_array($merged[$key])
+    ) {
+      $merged[$key] = array_merge_recursive_distinct($merged[$key], $value, $skip_null);
+    }
+    elseif (!$skip_null || $value !== NULL) {
+      $merged[$key] = $value;
+    }
+  }
+
+  return $merged;
+}
+
+/**
+ * Helper function to print variable via print_r function as a Drupal message
+ */
+function debug_message($text) {
+  drupal_set_message('<pre>' . print_r($text, TRUE) . '</pre>');
+}
+
+/**
+ * Helper function to print variable via print_r function into watchdog
+ */
+function debug_log($text) {
+  watchdog('debug', '<pre>' . print_r($text, TRUE) . '</pre>');
+}
+
+/**
+ * Helper function (wrapper) for specific drupal_clean_css_identifier settings
+ */
+function variable_name($id) {
+  return strtolower(drupal_clean_css_identifier($id, array(' ' => '_', '-' => '_')));
+}
+
+/**
+ * Helper function (wrapper) for l() function. Checks access to a link.
+ */
+function al($text, $path, array $options = array()) {
+  $menu = menu_get_item($path);
+  if ($menu['access']) {
+    $out = l($text, $path, $options);
+  }
+  else {
+    $out = '<span class="no-access"></span>';
+  }
+
+  return $out;
+}
+
+/**
+ * Helper to return formatted variable if possible
+ */
+function format_text_variable_get($name, $default_value = '') {
+  $var = variable_get($name, $default_value);
+  $value = $var;
+
+  if (is_array($var)) {
+    if (isset($var['value'])) {
+      if (isset($var['format'])) {
+        $value = check_markup($var['value'], $var['format']);
+      }
+      else {
+        $value = check_markup($var['value']);
+      }
+    }
+  }
+
+  return $value;
+}
+
+/**
+ * Helper function. Checks if active page matches the given path.
+ *
+ * @param string $page - path how it's defined in the hook_menu(), e. g. node/%node
+ *
+ * @return boolean
+ */
+function drupal_is_page($page) {
+  return menu_get_original_path() == $page;
+}
+
+/**
+ * Helper function. Rebuilds original path from menu item information.
+ *
+ * @return string
+ */
+function menu_get_original_path() {
+  $item = menu_get_item();
+  $original_path = $item['path'];
+
+  if (!empty($item['load_functions'])) {
+    $path = explode('/', $item['path']);
+    foreach ($path as &$slice) {
+      if ($slice == '%') {
+        $slice = array_shift($item['load_functions']);
+        $slice = '%' . preg_replace('/_load$/', '', $slice);
+      }
+    }
+    $original_path = implode('/', $path);
+  }
+
+  return $original_path;
+}
+
+/**
+ * Helper function. Checks if given menu path (path as it's defined in hook_menu()) matches any of the patterns.
+ *
+ * @param $menu_path
+ * @param $patterns
+ *
+ * @return bool
+ */
+function drupal_match_menu_path($patterns, $menu_path = '', $check_alias = TRUE) {
+  $match = FALSE;
+
+  if (empty($menu_path)) {
+    $menu_path = menu_get_original_path();
+  }
+
+  if ($check_alias) {
+    $alias_path = preg_replace('/^\//', '', url($_GET['q']));
+    if ($alias_path == $menu_path) {
+      unset($alias_path);
+    }
+  }
+
+  $patterns = preg_replace('/\//', '\/', $patterns);
+  $patterns = preg_replace('/\*{1}/', '[^\/]+', $patterns);
+  foreach ($patterns as $pattern) {
+    if (preg_match("/^$pattern/", $menu_path, $matches)) {
+      $match = TRUE;
+      break;
+    }
+    if (isset($alias_path)) {
+      if (preg_match("/^$pattern/", $alias_path, $matches)) {
+        $match = TRUE;
+        break;
+      }
+    }
+  }
+
+  return $match;
+}

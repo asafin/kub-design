@@ -1,0 +1,5 @@
+name = Helpers
+description = Helper functions to work easier with Drupal 7
+package = Code-Driven Drupal
+core = 7.x
+version = "0.1"
