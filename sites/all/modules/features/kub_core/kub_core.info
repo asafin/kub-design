@@ -154,3 +154,5 @@ features[user_permission][] = view own unpublished content
 features[user_permission][] = view revisions
 features[user_permission][] = view the administration theme
 features[user_role][] = administrator
+features[wysiwyg][] = filtered_html
+features[wysiwyg][] = full_html
