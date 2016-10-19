@@ -48,6 +48,33 @@ function kub_core_user_default_permissions() {
     'module' => 'system',
   );
 
+  // Exported permission: 'access all views'.
+  $permissions['access all views'] = array(
+    'name' => 'access all views',
+    'roles' => array(
+      'administrator' => 'administrator',
+    ),
+    'module' => 'views',
+  );
+
+  // Exported permission: 'access backup and migrate'.
+  $permissions['access backup and migrate'] = array(
+    'name' => 'access backup and migrate',
+    'roles' => array(
+      'administrator' => 'administrator',
+    ),
+    'module' => 'backup_migrate',
+  );
+
+  // Exported permission: 'access backup files'.
+  $permissions['access backup files'] = array(
+    'name' => 'access backup files',
+    'roles' => array(
+      'administrator' => 'administrator',
+    ),
+    'module' => 'backup_migrate',
+  );
+
   // Exported permission: 'access content'.
   $permissions['access content'] = array(
     'name' => 'access content',
@@ -76,6 +103,15 @@ function kub_core_user_default_permissions() {
       'authenticated user' => 'authenticated user',
     ),
     'module' => 'cpanel',
+  );
+
+  // Exported permission: 'access devel information'.
+  $permissions['access devel information'] = array(
+    'name' => 'access devel information',
+    'roles' => array(
+      'administrator' => 'administrator',
+    ),
+    'module' => 'devel',
   );
 
   // Exported permission: 'access maintenance mode'.
@@ -143,6 +179,15 @@ function kub_core_user_default_permissions() {
     'module' => 'system',
   );
 
+  // Exported permission: 'administer backup and migrate'.
+  $permissions['administer backup and migrate'] = array(
+    'name' => 'administer backup and migrate',
+    'roles' => array(
+      'administrator' => 'administrator',
+    ),
+    'module' => 'backup_migrate',
+  );
+
   // Exported permission: 'administer blocks'.
   $permissions['administer blocks'] = array(
     'name' => 'administer blocks',
@@ -159,6 +204,15 @@ function kub_core_user_default_permissions() {
       'administrator' => 'administrator',
     ),
     'module' => 'node',
+  );
+
+  // Exported permission: 'administer fancybox'.
+  $permissions['administer fancybox'] = array(
+    'name' => 'administer fancybox',
+    'roles' => array(
+      'administrator' => 'administrator',
+    ),
+    'module' => 'fancybox',
   );
 
   // Exported permission: 'administer features'.
@@ -242,6 +296,15 @@ function kub_core_user_default_permissions() {
     'module' => 'node',
   );
 
+  // Exported permission: 'administer pathauto'.
+  $permissions['administer pathauto'] = array(
+    'name' => 'administer pathauto',
+    'roles' => array(
+      'administrator' => 'administrator',
+    ),
+    'module' => 'pathauto',
+  );
+
   // Exported permission: 'administer permissions'.
   $permissions['administer permissions'] = array(
     'name' => 'administer permissions',
@@ -249,6 +312,15 @@ function kub_core_user_default_permissions() {
       'administrator' => 'administrator',
     ),
     'module' => 'user',
+  );
+
+  // Exported permission: 'administer redirects'.
+  $permissions['administer redirects'] = array(
+    'name' => 'administer redirects',
+    'roles' => array(
+      'administrator' => 'administrator',
+    ),
+    'module' => 'redirect',
   );
 
   // Exported permission: 'administer site configuration'.
@@ -296,6 +368,15 @@ function kub_core_user_default_permissions() {
     'module' => 'path',
   );
 
+  // Exported permission: 'administer url redirect settings'.
+  $permissions['administer url redirect settings'] = array(
+    'name' => 'administer url redirect settings',
+    'roles' => array(
+      'administrator' => 'administrator',
+    ),
+    'module' => 'cpanel',
+  );
+
   // Exported permission: 'administer users'.
   $permissions['administer users'] = array(
     'name' => 'administer users',
@@ -303,6 +384,15 @@ function kub_core_user_default_permissions() {
       'administrator' => 'administrator',
     ),
     'module' => 'user',
+  );
+
+  // Exported permission: 'administer views'.
+  $permissions['administer views'] = array(
+    'name' => 'administer views',
+    'roles' => array(
+      'administrator' => 'administrator',
+    ),
+    'module' => 'views',
   );
 
   // Exported permission: 'block IP addresses'.
@@ -352,6 +442,15 @@ function kub_core_user_default_permissions() {
     'module' => 'path',
   );
 
+  // Exported permission: 'delete backup files'.
+  $permissions['delete backup files'] = array(
+    'name' => 'delete backup files',
+    'roles' => array(
+      'administrator' => 'administrator',
+    ),
+    'module' => 'backup_migrate',
+  );
+
   // Exported permission: 'delete revisions'.
   $permissions['delete revisions'] = array(
     'name' => 'delete revisions',
@@ -370,6 +469,15 @@ function kub_core_user_default_permissions() {
     'module' => 'admin_menu',
   );
 
+  // Exported permission: 'execute php code'.
+  $permissions['execute php code'] = array(
+    'name' => 'execute php code',
+    'roles' => array(
+      'administrator' => 'administrator',
+    ),
+    'module' => 'devel',
+  );
+
   // Exported permission: 'flush caches'.
   $permissions['flush caches'] = array(
     'name' => 'flush caches',
@@ -386,6 +494,15 @@ function kub_core_user_default_permissions() {
       'administrator' => 'administrator',
     ),
     'module' => 'features',
+  );
+
+  // Exported permission: 'manage devel menu'.
+  $permissions['manage devel menu'] = array(
+    'name' => 'manage devel menu',
+    'roles' => array(
+      'administrator' => 'administrator',
+    ),
+    'module' => 'cpanel',
   );
 
   // Exported permission: 'manage features'.
@@ -418,6 +535,15 @@ function kub_core_user_default_permissions() {
   // Exported permission: 'manage management menu'.
   $permissions['manage management menu'] = array(
     'name' => 'manage management menu',
+    'roles' => array(
+      'administrator' => 'administrator',
+    ),
+    'module' => 'cpanel',
+  );
+
+  // Exported permission: 'manage menu-footer-menu menu'.
+  $permissions['manage menu-footer-menu menu'] = array(
+    'name' => 'manage menu-footer-menu menu',
     'roles' => array(
       'administrator' => 'administrator',
     ),
@@ -460,6 +586,24 @@ function kub_core_user_default_permissions() {
     'module' => 'nodequeue',
   );
 
+  // Exported permission: 'notify of path changes'.
+  $permissions['notify of path changes'] = array(
+    'name' => 'notify of path changes',
+    'roles' => array(
+      'administrator' => 'administrator',
+    ),
+    'module' => 'pathauto',
+  );
+
+  // Exported permission: 'perform backup'.
+  $permissions['perform backup'] = array(
+    'name' => 'perform backup',
+    'roles' => array(
+      'administrator' => 'administrator',
+    ),
+    'module' => 'backup_migrate',
+  );
+
   // Exported permission: 'rename features'.
   $permissions['rename features'] = array(
     'name' => 'rename features',
@@ -467,6 +611,15 @@ function kub_core_user_default_permissions() {
       'administrator' => 'administrator',
     ),
     'module' => 'features',
+  );
+
+  // Exported permission: 'restore from backup'.
+  $permissions['restore from backup'] = array(
+    'name' => 'restore from backup',
+    'roles' => array(
+      'administrator' => 'administrator',
+    ),
+    'module' => 'backup_migrate',
   );
 
   // Exported permission: 'revert revisions'.
@@ -485,6 +638,15 @@ function kub_core_user_default_permissions() {
       'administrator' => 'administrator',
     ),
     'module' => 'user',
+  );
+
+  // Exported permission: 'switch users'.
+  $permissions['switch users'] = array(
+    'name' => 'switch users',
+    'roles' => array(
+      'administrator' => 'administrator',
+    ),
+    'module' => 'devel',
   );
 
   // Exported permission: 'translate interface'.

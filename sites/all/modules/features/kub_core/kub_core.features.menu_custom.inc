@@ -10,6 +10,12 @@
 function kub_core_menu_default_menu_custom() {
   $menus = array();
 
+  // Exported menu: devel.
+  $menus['devel'] = array(
+    'menu_name' => 'devel',
+    'title' => 'Development',
+    'description' => 'Development link',
+  );
   // Exported menu: features.
   $menus['features'] = array(
     'menu_name' => 'features',
@@ -28,6 +34,12 @@ function kub_core_menu_default_menu_custom() {
     'title' => 'Management',
     'description' => 'The <em>Management</em> menu contains links for administrative tasks.',
   );
+  // Exported menu: menu-footer-menu.
+  $menus['menu-footer-menu'] = array(
+    'menu_name' => 'menu-footer-menu',
+    'title' => 'Footer menu',
+    'description' => '',
+  );
   // Exported menu: navigation.
   $menus['navigation'] = array(
     'menu_name' => 'navigation',
@@ -42,7 +54,10 @@ function kub_core_menu_default_menu_custom() {
   );
   // Translatables
   // Included for use with string extractors like potx.
+  t('Development');
+  t('Development link');
   t('Features');
+  t('Footer menu');
   t('Main menu');
   t('Management');
   t('Menu items for any enabled features.');
