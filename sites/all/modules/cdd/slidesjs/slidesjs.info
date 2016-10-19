@@ -1,0 +1,7 @@
+name = SlidesJS
+description = SlidesJS jQuery plugin integration module
+package = Code-Driven Drupal
+core = 7.x
+version = "1.x"
+
+dependencies[] = jquery_update

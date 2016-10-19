@@ -1,0 +1,7 @@
+name = Select2
+description = Select2 jQuery plugin integration module
+package = Code-Driven Drupal
+core = 7.x
+version = "0.1"
+
+dependencies[] = jquery_update

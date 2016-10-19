@@ -1,0 +1,20 @@
+<?php
+
+/**
+ * @file keeps Drupal hooks implementations
+ */
+
+/**
+ * Implements hook_init()
+ */
+function slidesjs_init() {
+  $path = drupal_get_path('module', 'slidesjs');
+
+  if (variable_get('jquery_update_jquery_version') >= 1.7) {
+    drupal_add_js("$path/library/slidesjs-3.0/jquery.slides.js");
+  }
+  else {
+    $message = 'jQuery version is not compatible with SlidesJS plugin. The minimum jQuery version is v1.7.1';
+    drupal_set_message(t($message), 'warning', FALSE);
+  }
+}

@@ -1,0 +1,40 @@
+<?php
+
+/**
+ * @file keeps Drupal hooks implementations
+ */
+
+define('CSS_SELECT2_LIBRARY', -50);
+
+/**
+ * Implements hook_init()
+ */
+function select2_init() {
+  $path = drupal_get_path('module', 'select2');
+
+  if (variable_get('jquery_update_jquery_version') >= 1.7) {
+    global $theme;
+
+    if (variable_get('admin_theme') !== $theme || variable_get('select2_skip_admin_theme', true) == false) {
+      drupal_add_css("$path/library/select2.css", array(
+        'group' => CSS_SELECT2_LIBRARY,
+      ));
+
+      drupal_add_js("$path/library/select2.js");
+      drupal_add_js("$path/js/select2.js");
+    }
+  }
+  else {
+    $message = 'jQuery version is not compatible with Select2 plugin. The minimum jQuery version is v1.7.1';
+    drupal_set_message(t($message), 'warning', FALSE);
+  }
+}
+
+/**
+ * Implements hook_compass_module()
+ */
+function select2_compass_module() {
+  return new \CDD\Compass\DrupalModule('select2', array(
+    'select2/bootstrap',
+  ));
+}

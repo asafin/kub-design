@@ -1,0 +1,40 @@
+// Font weights
+$fw-ultralight: 100
+$fw-light:      200
+$fw-book:       300
+$fw-normal:     400
+$fw-medium:     500
+$fw-demibold:   600
+$fw-bold:       700
+$fw-ultrabold:  900
+
+//colors
+$white: #ffffff
+$black: #000000
+$graphite: #222222
+$gray-light: #c5c5c5
+$gray: #a0a0a0
+$gray-header: #e0e0e0
+$green: #2eb72e
+$pink: #ec008c
+$blue-light: #7582bf
+
+
+//bootstrap variables
+
+$sans-serif: "Arial", "Verdana", sans-serif
+
+//mixins
+@mixin display($res)
+  @media screen and (max-width: $res)
+    @content
+
+@mixin a($color: inherit)
+  a,
+  .a
+    color: $color
+
+@mixin img-res()
+  display: block
+  height: auto
+  max-width: 100%

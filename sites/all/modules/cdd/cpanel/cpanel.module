@@ -1,0 +1,167 @@
+<?php
+
+/**
+ * @file keeps Drupal core hooks implementations
+ */
+
+include_once("inc/helpers.inc");
+include_once("inc/menu.inc");
+include_once("inc/taxonomy.inc");
+
+/**
+ * Implements hook_menu()
+ */
+function cpanel_menu() {
+  $items = [];
+
+  $items["admin/cpanel"] = [
+    "title" => "Control panel",
+    "page callback" => "drupal_get_form",
+    "page arguments" => ["cpanel_form"],
+    "access arguments" => ["access cpanel"],
+    "file" => "cpanel_form.inc",
+    "file path" => drupal_get_path("module", "cpanel") . "/form",
+    "type" => MENU_NORMAL_ITEM,
+  ];
+
+  return $items;
+}
+
+/**
+ * Implements hook_permission()
+ */
+function cpanel_permission() {
+  $permissions = [
+    "access cpanel" => [
+      "title" => t("Access control panel"),
+    ],
+    "access maintenance mode" => [
+      "title" => t("Access site maintenance mode settings"),
+    ],
+    "access user module settings" => [
+      "title" => t("Access User module settings"),
+    ],
+  ];
+
+  if (module_exists("menu")) {
+    $menus = menu_get_menus();
+    foreach ($menus as $name => $title) {
+      $permissions["manage $name menu"] = [
+        "title" => t("Manage %menu_name menu", ["%menu_name" => $title]),
+        "description" => t("Add link, change links order, edit menu information"),
+      ];
+    }
+  }
+
+  if (module_exists("taxonomy")) {
+    $permissions["access vocabularies list"] = [
+      "title" => t("Access vocabularies list"),
+    ];
+
+    foreach (taxonomy_get_vocabularies() as $vocabulary) {
+      $permissions["add terms in {$vocabulary->machine_name}"] = [
+        "title" => t("Add terms in %vocabulary", ["%vocabulary" => $vocabulary->name]),
+      ];
+    }
+  }
+
+  if (module_exists("admin_menu")) {
+    $permissions["access admin menu settings"] = [
+      "title" => t("Access admin menu settings"),
+    ];
+  }
+
+  if (module_exists("site_verify")) {
+    $permissions["administer site verification"] = [
+      "title" => t("Administer site search engine verification"),
+    ];
+  }
+
+  if (module_exists("redirect")) {
+    $permissions["administer url redirect settings"] = [
+      "title" => t("Administer URL redirect settings"),
+    ];
+  }
+
+  ksort($permissions);
+
+  return $permissions;
+}
+
+/**
+ * Implements hook_menu_alter()
+ *
+ * @param $items
+ */
+function cpanel_menu_alter(&$items) {
+  // System module
+  $items["admin/config/development/maintenance"]["access arguments"] = ["access maintenance mode"];
+
+  // User module
+  $items["admin/config/people/accounts"]["access arguments"] = ["access user module settings"];
+
+  if (module_exists("menu")) {
+    cpanel_menu_alter_menu($items);
+  }
+
+  if (module_exists("taxonomy")) {
+    cpanel_menu_alter_taxonomy($items);
+  }
+
+  if (module_exists("admin_menu")) {
+    $items["admin/config/administration/admin_menu"]["access arguments"] = ["access admin menu settings"];
+  }
+
+  if (module_exists("site_verify")) {
+    $access_arguments = ["administer site verification"];
+
+    $items["admin/config/search/verifications"]["access arguments"] = $access_arguments;
+    $items["admin/config/search/verifications/add"]["access arguments"] = $access_arguments;
+    $items["admin/config/search/verifications/%site_verify/edit"]["access arguments"] = $access_arguments;
+    $items["admin/config/search/verifications/%site_verify/delete"]["access arguments"] = $access_arguments;
+  }
+
+  if (module_exists("redirect")) {
+    $items["admin/config/search/redirect/settings"]["access arguments"] = ["administer url redirect settings"];
+  }
+}
+
+/**
+ * Implements hook_form_BASE_FORM_ID_alter for node_form
+ *
+ * @param $form
+ * @param $form_state
+ */
+function cpanel_form_node_form_alter(&$form, &$form_state) {
+  if (module_exists("menu")) {
+    cpanel_form_node_form_alter_menu($form);
+  }
+}
+
+/**
+ * Implementation of hook_entity_info_alter()
+ *
+ * @param $entities
+ */
+function cpanel_entity_info_alter(&$entities) {
+  $entities["user"]["bundles"]["user"]["admin"]["access arguments"] = ["access user module settings"];
+}
+
+/**
+ * Implementation of hook_module_implements_alter()
+ *
+ * @param $implementations
+ * @param $hook
+ */
+function cpanel_module_implements_alter(&$implementations, $hook) {
+  switch ($hook) {
+    case "form_node_form_alter":
+    case "form_alter":
+      if (isset($implementations["cpanel"])) {
+        $group = $implementations["cpanel"];
+        unset($implementations["cpanel"]);
+        $implementations["cpanel"] = $group;
+      }
+      break;
+  }
+}

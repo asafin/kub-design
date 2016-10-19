@@ -1,0 +1,66 @@
+.node
+  .field-type-date
+    color: $gray
+    margin-bottom: 1em
+  .field-item
+    .glyphicon
+      margin-right: 7px
+    .glyphicon-tags
+      color: $gray
+  &.node-teaser
+    ul.inline
+      li
+        padding: 0
+    h3
+      a
+        &:hover
+          border-bottom: 1px dotted $pink
+          text-decoration: none
+    .field-name-field-blog-tags,
+    .field-name-field-news-tags
+      margin-bottom: 1em
+      i
+        font-size: 12px
+  a.btn
+    color: $white
+    &.btn-default
+      color: $graphite
+  table
+    margin-bottom: 1em
+    & > thead
+      & > tr
+        & > td
+          border-bottom: 2px solid #ddd
+          line-height: 1.4em
+          font-weight: $fw-bold
+          padding: 8px
+          text-align: center
+          vertical-align: bottom
+    & > tbody
+      & > tr
+        & > td
+          border-top: 1px solid #ddd
+          line-height: 1.4em
+          padding: 8px
+          vertical-align: top
+
+        &:nth-of-type(odd)
+          background-color: #f9f9f9
+
+.field-type-text-with-summary
+  font-size: 16px
+  img
+    margin-right: 1em
+  a
+    &:hover
+      border-bottom: 1px dotted $pink
+      text-decoration: none
+
+.view-blog-page,
+.view-news-page,
+.view-tweets-page
+  .views-row
+    margin-bottom: 1em
+
+.service-center-button
+  margin-bottom: 1em

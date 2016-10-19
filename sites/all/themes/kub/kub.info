@@ -1,0 +1,9 @@
+name = Kub Design
+description = Theme for Kub Design website
+core = 7.x
+engine = phptemplate
+
+stylesheets[screen, projection][] = css/screen.css
+stylesheets[print][] = css/print.css
+
+scripts[] = js/kub.js

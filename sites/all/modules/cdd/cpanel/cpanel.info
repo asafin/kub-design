@@ -1,0 +1,6 @@
+name = Control Panel
+description = Organizes site settings for Managers in one place.
+package = Code-Driven Drupal
+core = 7.x
+version = "0.1"
+dependencies[] = helpers
